@@ -1,0 +1,11 @@
+{
+    "name": "adl-analytics",
+    "properties": {
+        "type": "AzureDataLakeAnalytics",
+        "typeProperties": {
+          "authorization": "<Authorization code is automatically retrieved after clicking 'Authorize' and completing the OAuth login>",
+          "accountName": "pocanalytics123",
+          "sessionId": "<OAuth session id from the OAuth authorization session. Each session id is unique and may only be used once>"
+      }
+    }
+}

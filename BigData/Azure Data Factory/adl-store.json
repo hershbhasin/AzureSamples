@@ -1,0 +1,12 @@
+{
+    "name": "adl-store",
+    "properties": {
+        "type": "AzureDataLakeStore",
+        "description": "",
+        "typeProperties": {
+          "authorization": "<Click 'Authorize' to allow this data factory and the activities it runs to access this Data Lake Store with your access rights>",
+          "dataLakeStoreUri": "https://wonderfullake1234.azuredatalakestore.net/webhdfs/v1",
+          "sessionId": "<OAuth session id from the OAuth authorization session. Each session id is unique and may only be used once>"
+      }
+    }
+}
