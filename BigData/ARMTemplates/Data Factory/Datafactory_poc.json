@@ -1,0 +1,153 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sqlserver_name": {
+            "defaultValue": "worderfulsqlserver1234",
+            "type": "String"
+        },
+        "storageAccounts_dfstorage1234_name": {
+            "defaultValue": "dfstorage1234",
+            "type": "String"
+        },
+        "sqlserver_password": {
+            "defaultValue": "PassW0rd",
+            "type": "String"
+        },
+       
+        "datafactory_name": {
+            "defaultValue": "wonderfuldatafactory1234",
+            "type": "String"
+        },
+        "adlAnalyticsName": {
+            "defaultValue": "pocanalytics123",
+            "type": "String"
+        },
+        "adlStoreName": {
+            "defaultValue": "wonderfullake1234",
+            "type": "String"
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": "ce644727-f6f9-4d03-a4bb-f687d3eaf60d",
+            "metadata": {
+                "description": "Subscription Id of both Data Lake Store and Event Hub namespace"
+            }
+        }
+    },
+    "variables": {
+        "location": "EastUS2",
+        "location_datafactory": "EastUS"
+
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[parameters('sqlserver_name')]",
+            "location": "[variables('location')]",
+            "kind": "v12.0",
+            "properties": {
+                "administratorLogin": "harman",
+                "administratorLoginPassword": "[parameters('sqlserver_password')]",
+                "version": "12.0"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2018-07-01",
+            "name": "[parameters('storageAccounts_dfstorage1234_name')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('sqlserver_name'), '/DataDb')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('sqlserver_name'))]"
+            ],
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "kind": "v12.0,user",
+            "properties": {
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": 2147483648,
+                "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+                "zoneRedundant": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('sqlserver_name'), '/AllowAllWindowsAzureIps')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('sqlserver_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            }
+        },
+        {
+            "apiVersion": "2015-01-01-preview",
+            "name": "[parameters('datafactory_name')]",
+            "location": "[variables('location_datafactory')]",
+            "type": "Microsoft.DataFactory/dataFactories",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.DataLakeStore/accounts",
+            "apiVersion": "2016-11-01",
+            "name": "[parameters('adlStoreName')]",
+            "location": "[variables('location')]",
+            "properties": {}
+        },
+        {
+            "name": "[parameters('adlAnalyticsName')]",
+            "type": "Microsoft.DataLakeAnalytics/accounts",
+            "location": "[variables('location')]",
+            "apiVersion": "2016-11-01",
+            "dependsOn": [
+                "[concat('Microsoft.DataLakeStore/accounts/', parameters('adlStoreName'))]"
+            ],
+            "tags": {},
+            "properties": {
+                "defaultDataLakeStoreAccount": "[parameters('adlStoreName')]",
+                "dataLakeStoreAccounts": [
+                    {
+                        "name": "[parameters('adlStoreName')]"
+                    }
+                ]
+            }
+        }
+    ]
+}

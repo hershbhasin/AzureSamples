@@ -1,0 +1,10 @@
+C:\hbAzureSamples\dotnetCore\mywebapi\bin\Debug\netcoreapp2.0\mywebapi.deps.json
+C:\hbAzureSamples\dotnetCore\mywebapi\bin\Debug\netcoreapp2.0\mywebapi.runtimeconfig.json
+C:\hbAzureSamples\dotnetCore\mywebapi\bin\Debug\netcoreapp2.0\mywebapi.runtimeconfig.dev.json
+C:\hbAzureSamples\dotnetCore\mywebapi\bin\Debug\netcoreapp2.0\mywebapi.dll
+C:\hbAzureSamples\dotnetCore\mywebapi\bin\Debug\netcoreapp2.0\mywebapi.pdb
+C:\hbAzureSamples\dotnetCore\mywebapi\obj\Debug\netcoreapp2.0\mywebapi.csproj.CoreCompileInputs.cache
+C:\hbAzureSamples\dotnetCore\mywebapi\obj\Debug\netcoreapp2.0\mywebapi.AssemblyInfoInputs.cache
+C:\hbAzureSamples\dotnetCore\mywebapi\obj\Debug\netcoreapp2.0\mywebapi.AssemblyInfo.cs
+C:\hbAzureSamples\dotnetCore\mywebapi\obj\Debug\netcoreapp2.0\mywebapi.dll
+C:\hbAzureSamples\dotnetCore\mywebapi\obj\Debug\netcoreapp2.0\mywebapi.pdb

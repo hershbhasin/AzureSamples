@@ -1,0 +1,56 @@
+{
+    "name": "dsTransformed",
+    "properties": {
+        "structure": [
+            {
+                "name": "Timestamp",
+                "type": "String"
+            },
+            {
+                "name": "Device",
+                "type": "String"
+            },
+            {
+                "name": "Category",
+                "type": "String"
+            },
+            {
+                "name": "Message",
+                "type": "String"
+            }
+        ],
+        "published": false,
+        "type": "AzureDataLakeStore",
+        "linkedServiceName": "adl-store",
+        "typeProperties": {
+            "fileName": "summary.csv",
+            "folderPath": "output/summary/{Year}/{Month}",
+            "format": {
+                "type": "TextFormat",
+                "columnDelimiter": ","
+            },
+            "partitionedBy": [
+                {
+                    "name": "Year",
+                    "value": {
+                        "type": "DateTime",
+                        "date": "SliceStart",
+                        "format": "yyyy"
+                    }
+                },
+                {
+                    "name": "Month",
+                    "value": {
+                        "type": "DateTime",
+                        "date": "SliceStart",
+                        "format": "MM"
+                    }
+                }
+            ]
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 1
+        }
+    }
+}

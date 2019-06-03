@@ -1,0 +1,45 @@
+{
+    "name": "Pipeline Logs",
+    "properties": {
+      "activities": [
+        {
+          "type": "DataLakeAnalyticsU-SQL",
+          "typeProperties": {
+            "script": "Avro.dbo.sp_CreateLogs(System.DateTime.Parse(@DateSliceStart), System.DateTime.Parse(@DateSliceEnd));",
+            "degreeOfParallelism": 2,
+            "priority": 100,
+            "parameters": {
+              "DateSliceStart": "$$Text.Format('{0:yyyy-MM-ddTHH:mm:ssZ}', SliceStart)",
+              "DateSliceEnd": "$$Text.Format('{0:yyyy-MM-ddTHH:mm:ssZ}', SliceEnd)"
+            }
+          },
+          "inputs": [
+            {
+              "name": "dsRawData"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "dsTransformed"
+            }
+          ],
+          "policy": {
+            "timeout": "01:00:00",
+            "concurrency": 2,
+            "executionPriorityOrder": "OldestFirst",
+            "retry": 2
+          },
+          "scheduler": {
+            "frequency": "Month",
+            "interval": 1
+          },
+          "name": "U-SQL Script to Summarize Logs",
+          "linkedServiceName": "adl-analytics"
+        }
+    
+      ],
+      "start": "2018-01-01T00:00:00Z",
+      "end": "2018-02-01T23:59:59Z",
+      "pipelineMode": "Scheduled"
+    }
+  }

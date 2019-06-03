@@ -1,0 +1,2 @@
+#az acs create --orchestrator-type kubernetes --resource-group $RESOURCE_GROUP_NAME --name myK8sCluster --generate-ssh-keys
+#az acs create --resource-group k8swestus2 --location westus2 --orchestrator-type kubernetes --name btwestus2cluster --ssh-key-value ./acs.pub --master-count 1 --master-vm-size Standard_E2s_v3 --master-#storage-profile ManagedDisks --agent-vm-size Standard_E4s_v3 --agent-count 2 --agent-storage-profile ManagedDisks --orchestrator-release 1.7 --agent-osdisk-size 128 --master-osdisk-size 128 --debug

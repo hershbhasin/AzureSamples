@@ -1,0 +1,4 @@
+D:\docker\APIWithSql\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+D:\docker\SqlServerDocker\APIWithSql\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+D:\PrototypeCode\AzureSamples\Containers\docker\SqlServerDocker\APIWithSql\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+D:\ClientCode\AzureSamples\docker\SqlServerDocker\APIWithSql\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache

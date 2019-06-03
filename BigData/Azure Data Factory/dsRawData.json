@@ -1,0 +1,50 @@
+{
+    "name": "dsRawData",
+    "properties": {
+        "structure": [
+            {
+                "name": "body",
+                "type": "String"
+            }
+        ],
+        "published": false,
+        "type": "AzureDataLakeStore",
+        "linkedServiceName": "adl-store",
+        "typeProperties": {
+            
+            "folderPath": "archivefolder/cloudworxpoceventhubns_cloudworxpoceventhub_0/{Year}/{Month}/",
+            "format": {
+                "type": "TextFormat",
+                "columnDelimiter": " "
+            },
+            "partitionedBy": [
+                {
+                    "name": "Year",
+                    "value": {
+                        "type": "DateTime",
+                        "date": "SliceStart",
+                        "format": "yyyy"
+                    }
+                },
+                {
+                    "name": "Month",
+                    "value": {
+                        "type": "DateTime",
+                        "date": "SliceStart",
+                        "format": "MM"
+                    }
+                }
+            ]
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 1
+        },
+        "external": true,
+        "policy": {
+            "validation": {
+                "minimumSizeMB": 0.01
+            }
+        }
+    }
+}

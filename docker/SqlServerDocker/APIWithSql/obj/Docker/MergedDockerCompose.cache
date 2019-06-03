@@ -1,0 +1,23 @@
+services:
+  apiwithsql:
+    build:
+      context: D:\ClientCode\AzureSamples\docker\SqlServerDocker\APIWithSql
+      dockerfile: APIWithSql/Dockerfile
+    depends_on:
+    - db
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: apiwithsql
+    ports:
+    - published: 8000
+      target: 80
+    - target: 80
+  db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: PassW0rd
+    image: microsoft/mssql-server-linux:2017-latest
+    ports:
+    - published: 1433
+      target: 1433
+version: '3.4'

@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  apiwithsql:
+    image: ${DOCKER_REGISTRY}apiwithsql
+    build:
+      context: .
+      dockerfile: APIWithSql/Dockerfile

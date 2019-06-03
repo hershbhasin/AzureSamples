@@ -1,0 +1,53 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adlAnalyticsName": {
+      "defaultValue": "wonderfuldatanalytics1234",
+      "type": "String"
+    },
+    "adlStoreName": {
+      "defaultValue": "wonderfullake1234",
+      "type": "String"
+    },
+    "location": {
+      "defaultValue": "eastus2",
+      "type": "String"
+    },
+    "subscriptionId": {
+      "type": "string",
+      "defaultValue": "ce644727-f6f9-4d03-a4bb-f687d3eaf60d",
+      "metadata": {
+        "description": "Subscription Id of both Data Lake Store and Event Hub namespace"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.DataLakeStore/accounts",
+      "apiVersion": "2016-11-01",
+      "name": "[parameters('adlStoreName')]",
+      "location": "[parameters('location')]",
+      "properties": {}
+    },
+    {
+      "name": "[parameters('adlAnalyticsName')]",
+      "type": "Microsoft.DataLakeAnalytics/accounts",
+      "location": "[parameters('location')]",
+      "apiVersion": "2016-11-01",
+      "dependsOn": [
+        "[concat('Microsoft.DataLakeStore/accounts/', parameters('adlStoreName'))]"
+      ],
+      "tags": {},
+      "properties": {
+        "defaultDataLakeStoreAccount": "[parameters('adlStoreName')]",
+        "dataLakeStoreAccounts": [
+          {
+            "name": "[parameters('adlStoreName')]"
+          }
+        ]
+      }
+    }
+  ]
+}

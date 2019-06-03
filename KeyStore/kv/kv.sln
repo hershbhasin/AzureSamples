@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kv", "kv\kv.csproj", "{6861A413-1BCD-49A4-B210-05C17D144B8E}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "AzureResourceGroup1", "AzureResourceGroup1\AzureResourceGroup1.deployproj", "{CE62B21F-458E-42C5-B343-BCE476395C7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6861A413-1BCD-49A4-B210-05C17D144B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6861A413-1BCD-49A4-B210-05C17D144B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6861A413-1BCD-49A4-B210-05C17D144B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6861A413-1BCD-49A4-B210-05C17D144B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE62B21F-458E-42C5-B343-BCE476395C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE62B21F-458E-42C5-B343-BCE476395C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE62B21F-458E-42C5-B343-BCE476395C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE62B21F-458E-42C5-B343-BCE476395C7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76FF505F-3055-43D6-8E05-5DE9CF773E2C}
+	EndGlobalSection
+EndGlobal
