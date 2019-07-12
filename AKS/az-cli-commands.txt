@@ -1,0 +1,7 @@
+az login
+az account list --output table
+az account set --subscription "SDIG Dev - 942009"
+
+az vm encryption enable -g AVATAR_DEV --name HControlGatewaySetup --disk-encryption-keyvault avatardev-vmencryptkv
+
+az vm encryption enable -g AVATAR_QA --name NexposeScanEngine --disk-encryption-keyvault avatarqa-vmencryptkv
