@@ -165,6 +165,11 @@ docker push  $taggedImageNameVer2
 
 kubectl set image deployment letskube-deployment letskube=mywonderfulrepo1.azurecr.io/letskube:v2
 
+#########Browse
+
+az aks browse -g $rg -n $clusterName
+
+
 ##############Helpers#############
 #delete all containers
 docker stop $(docker ps -aq)
