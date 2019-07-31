@@ -50,13 +50,6 @@ az acr create -n $repoName -g $rg -l $location --sku standard
 az acr list -o table
 
 
-
-#login to acr
-az acr login -n $repoName
-
-#you have to tag the image with the login server name. To get the name run
-az acr list -o table
-
 #tag image
 docker tag letskube:local  $taggedImageName
 docker image list
@@ -82,14 +75,24 @@ az acr login --name $repoName
 docker push  $taggedImageName
 
 #view repo images
-az acr repository list -n mytestacr12345 -o table
+az acr repository list -n $repoName -o table
 
-############ Give Service Principal rights to ACS ############ 
+############ Create Service Principal ############ 
+#commented out as using hard coded service principal. If required to be created , uncomment
+
 #skip-assignmen will limit any additional permissions from being assigned
 #default behaviour is contributor role, which is too broad
-az ad sp create-for-rbac --skip-assignment
+#option 1
+#$automationSecurityPrincipal = az ad sp create-for-rbac --skip-assignment
 
-#note the appid & password
+#Option2: another detailed way of creating ad principal
+# $automationSecurityPrincipalName = "somename"
+#$automationSecurityPrincipal = az ad sp create-for-rbac --name $automationSecurityPrincipalName --role Reader --scopes $rg --years 50 | ConvertFrom-Json
+#$automationSecurityPrincipalUserName = $automationSecurityPrincipal.name
+#$automationSecurityPrincipalTenant = $automationSecurityPrincipal.tenant
+
+
+#note the appid & password that get displayed and update variables $appid and $password
 
 #get the acr resource id by running following:
 $acrId = az acr show --name $repoName --resource-group $rg --query "id" --output tsv
@@ -112,7 +115,9 @@ az aks create `
 --service-principal $appid `
 --client-secret $password
 
-#connect
+##########connect to aks#################
+# first clear C:\Users\hbhasin\.kube\config
+#retreives kubeconfig from cluster and merges into current kubeconfig on local machine
 az aks get-credentials --resource-group $rg --name $clusterName
 
 
@@ -165,9 +170,19 @@ docker push  $taggedImageNameVer2
 
 kubectl set image deployment letskube-deployment letskube=mywonderfulrepo1.azurecr.io/letskube:v2
 
-#########Browse
+########## Versions ##############
 
-az aks browse -g $rg -n $clusterName
+#check which upgrades are available
+az aks get-upgrades --resource-group $rg --name $clusterName
+
+#upgrade
+az aks upgrade --resource-group $rg --name $clusterName --kubernetes-version 1.12.8
+
+###########Browse#############
+
+#browse to dashboard service
+az aks browse -n $clusterName -g $rg
+
 
 
 ##############Helpers#############
