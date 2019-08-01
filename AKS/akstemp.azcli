@@ -102,8 +102,6 @@ $acrId
 az role assignment create --assignee $appid --role Reader --scope $acrId
 
 
-
-
 #create aks cluster
 
 az aks create `
@@ -119,8 +117,6 @@ az aks create `
 # first clear C:\Users\hbhasin\.kube\config
 #retreives kubeconfig from cluster and merges into current kubeconfig on local machine
 az aks get-credentials --resource-group $rg --name $clusterName
-
-
 
 # Deploy
 
@@ -138,36 +134,15 @@ kubectl get service --watch
 kubectl get service
 
 
-############ Commands #######################
+############Scale#######################
 
-#connect
-az aks get-credentials --resource-group $rg --name $clusterName
 
-#to switch between multiple configs (look up name in  C:\Users\<username>\.kube\config)
-kubectl config use-context $clusterName
-
-#list
-az aks list -o table
-
-#get nodes
 kubectl get nodes
-
-#pods
-kubectl get pods
-kubectl get pods --all-namespaces
-
-#### browse to dashboard service ###
-
-#https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/aks/kubernetes-dashboard.md
-#If your AKS cluster uses RBAC, a ClusterRoleBinding must be created before you can correctly access the dashboard
-kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
-
-az aks browse -n $clusterName -g $rg
-
-########## scale  s##############
 
 #scale nodes: will add mode virtual machines
 az aks scale --resource-group $rg --name=$clusterName --node-count 3
+
+kubectl get pods
 
 #scale pods
 kubectl get deployment
@@ -175,7 +150,7 @@ kubectl scale --replicas=1 deployment/letskube-deployment
 
 kubectl get pods
 
-############ Update the Image #################
+############Update the Image#################
 
 #make some change in app and then build:
 docker build . -t $taggedImageNameVer2
@@ -197,6 +172,11 @@ az aks get-upgrades --resource-group $rg --name $clusterName
 
 #upgrade
 az aks upgrade --resource-group $rg --name $clusterName --kubernetes-version 1.12.8
+
+###########Browse#############
+
+#browse to dashboard service
+az aks browse -n $clusterName -g $rg
 
 
 
