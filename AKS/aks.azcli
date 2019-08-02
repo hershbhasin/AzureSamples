@@ -122,7 +122,7 @@ az aks get-credentials --resource-group $rg --name $clusterName
 
 
 
-# Deploy
+########### Deploy without helm #######################
 
 #Ensure that the deployment yml image is correctly tagged with server name
 # to get login server
@@ -137,6 +137,19 @@ kubectl get service --watch
 
 kubectl get service
 
+############ Deploy updated  Image #################
+
+#make some change in app and then build:
+docker build . -t $taggedImageNameVer2
+
+az acr login --name $repoName
+
+docker push  $taggedImageNameVer2
+
+#now you can change the image name in the deployment.yml file and redeploy or use cli like thus:
+#lutskube is the app name we specified in deployment.yml earlier
+
+kubectl set image deployment letskube-deployment letskube=mywonderfulrepo1.azurecr.io/letskube:v2
 
 ############ Commands #######################
 
@@ -155,6 +168,14 @@ kubectl get nodes
 #pods
 kubectl get pods
 kubectl get pods --all-namespaces
+
+########## Versions ##############
+
+#check which upgrades are available
+az aks get-upgrades --resource-group $rg --name $clusterName
+
+#upgrade
+az aks upgrade --resource-group $rg --name $clusterName --kubernetes-version 1.12.8
 
 #### browse to dashboard service ###
 
@@ -175,30 +196,94 @@ kubectl scale --replicas=1 deployment/letskube-deployment
 
 kubectl get pods
 
-############ Update the Image #################
 
-#make some change in app and then build:
-docker build . -t $taggedImageNameVer2
 
+# Deploy with Helm ####
+#https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm
+#https://helm.sh/docs/using_helm/#installing-helm
+
+# Install helm locally
+
+#install
+choco install kubernetes-helm
+
+#Before you can deploy Helm in an RBAC-enabled AKS cluster, you need a service account and role binding for the Tiller service
+
+cd C:\_hbGit\AzureSamples\AKS\
+kubectl apply -f .\helm-rbac.yaml
+
+#Configure Helm (run in bash)
+helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux"
+
+#check
+kubectl get pods --all-namespaces
+
+#Find Helm charts
+helm search
+
+#list
+helm list
+#Install draft
+#https://github.com/Azure/draft/blob/master/docs/quickstart.md
+#draft: https://docs.microsoft.com/en-us/azure/aks/kubernetes-draft
+
+#run in elivated powershell
+choco install draft
+
+# configure draft
+#draft builds a helm chart and deploys it to aks
+draft init
+
+#register ACR so that images are pushed to acr
+#https://github.com/Azure/draft/blob/master/docs/install-cloud.md
+
+draft config set registry $loginServerName
+
+#login to acr
 
 az acr login --name $repoName
+# create
+#cd to folder with DockerFile
+#this will create draft.toml  
+#also a charts dir: a empty charts dir, chart.yml,values.yml (values to plug into templates/deployment.yml) 
+#Note image reo name in templates/deployment.yml:  image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}")
 
-docker push  $taggedImageNameVer2
+#in values file make these changes
+#service:
+#  type: LoadBalancer
+ #repository: node
+ # tag: onbuild
+cd C:\_hbGit\AzureSamples\AKS\letskube
 
-#now you can change the image name in the deployment.yml file and redeploy or use cli like thus:
-#lutskube is the app name we specified in deployment.yml earlier
+#create
+draft create
 
-kubectl set image deployment letskube-deployment letskube=mywonderfulrepo1.azurecr.io/letskube:v2
+#deploy
+draft up
 
-########## Versions ##############
+#check
 
-#check which upgrades are available
-az aks get-upgrades --resource-group $rg --name $clusterName
+kubectl get pods
 
-#upgrade
-az aks upgrade --resource-group $rg --name $clusterName --kubernetes-version 1.12.8
+#get external ip. Your service will run on http:/externalip:8080
+kubectl get service
+
+#connect on localhost
+draft connect
 
 
+#modify app  and redeploy: make some change say to appsettings.json and simply do draft up again
+draft up
+
+#how to delete deployments
+#list deployments and note deployment Name
+helm list
+
+#delete
+helm delete $imageName --purge
+
+#to delete aks cluster
+az aks delete  -n $clusterName -g $rg --no-wait
 
 ##############Helpers#############
 #delete all containers
