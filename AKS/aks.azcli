@@ -120,7 +120,8 @@ az aks create `
 #retreives kubeconfig from cluster and merges into current kubeconfig on local machine
 az aks get-credentials --resource-group $rg --name $clusterName
 
-
+#to verify current cluster
+kubectl config view
 
 ########### Deploy without helm #######################
 
@@ -207,22 +208,49 @@ kubectl get pods
 #install
 choco install kubernetes-helm
 
-#Before you can deploy Helm in an RBAC-enabled AKS cluster, you need a service account and role binding for the Tiller service
+#Rbac for Tiller
+#Before you can deploy Helm in an RBAC-enabled AKS cluster, 
+#you need a service account and role binding for the Tiller service
+#this is in helm-rbac.yaml
 
 cd C:\_hbGit\AzureSamples\AKS\
 kubectl apply -f .\helm-rbac.yaml
 
-#Configure Helm (run in bash)
+#Configure Helm  & install tiller on default cluster
 helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux"
 
 #check
 kubectl get pods --all-namespaces
 
-#Find Helm charts
-helm search
+#check tiller
+kubectl get all --namespace=kube-system -l name=tiller
+
+######### Clean Up ##############
 
 #list
 helm list
+
+#delete all objects belonging to a release
+helm delete <deployment-name: run helm list to get it>
+
+#there might be some data in kube-system namespace. to check:
+kubectl get configmaps --namespace=kube-system
+
+#delete
+helm delete <deployment-name> --purge
+
+#delete all releases
+helm del $(helm ls --all --short) --purge
+
+######## Helm Command s##########
+#Find Helm charts
+helm search
+
+
+
+#reset/remove tiller
+helm reset
+
 #Install draft
 #https://github.com/Azure/draft/blob/master/docs/quickstart.md
 #draft: https://docs.microsoft.com/en-us/azure/aks/kubernetes-draft
@@ -231,6 +259,7 @@ helm list
 choco install draft
 
 # configure draft
+#https://docs.microsoft.com/en-us/azure/aks/kubernetes-draft
 #draft builds a helm chart and deploys it to aks
 draft init
 
@@ -248,15 +277,18 @@ az acr login --name $repoName
 #also a charts dir: a empty charts dir, chart.yml,values.yml (values to plug into templates/deployment.yml) 
 #Note image reo name in templates/deployment.yml:  image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}")
 
-#in values file make these changes
-#service:
-#  type: LoadBalancer
- #repository: node
- # tag: onbuild
+
 cd C:\_hbGit\AzureSamples\AKS\letskube
 
 #create
 draft create
+
+#in values file make these changes. Repos
+#service:
+#  type: LoadBalancer
+#image:
+  #repository: node
+  #tag: onbuild
 
 #deploy
 draft up

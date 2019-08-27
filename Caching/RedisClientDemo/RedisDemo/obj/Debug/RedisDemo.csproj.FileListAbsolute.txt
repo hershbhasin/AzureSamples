@@ -1,0 +1,16 @@
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\RedisDemo.exe.config
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\RedisDemo.exe
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\RedisDemo.pdb
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Common.dll
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Interfaces.dll
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Redis.dll
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Text.dll
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Common.xml
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Interfaces.xml
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Redis.xml
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\bin\Debug\ServiceStack.Text.xml
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\obj\Debug\RedisDemo.csprojAssemblyReference.cache
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\obj\Debug\RedisDemo.csproj.CoreCompileInputs.cache
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\obj\Debug\RedisDemo.csproj.CopyComplete
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\obj\Debug\RedisDemo.exe
+C:\HarmanPrototypes\Prediction\RedisDemo\RedisDemo\obj\Debug\RedisDemo.pdb

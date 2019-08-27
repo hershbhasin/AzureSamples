@@ -1,0 +1,59 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "MemCacheClient/1.0.0": {
+        "dependencies": {
+          "Enyim.Memcached2": "0.6.8"
+        },
+        "runtime": {
+          "MemCacheClient.dll": {}
+        }
+      },
+      "Enyim.Core/0.6.8": {
+        "runtime": {
+          "lib/netstandard2.1/Enyim.Core.dll": {
+            "assemblyVersion": "0.6.8.0",
+            "fileVersion": "0.6.8.0"
+          }
+        }
+      },
+      "Enyim.Memcached2/0.6.8": {
+        "dependencies": {
+          "Enyim.Core": "0.6.8"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Enyim.Memcached2.dll": {
+            "assemblyVersion": "0.6.8.0",
+            "fileVersion": "0.6.8.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MemCacheClient/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Enyim.Core/0.6.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mUo7f6arDLjLrf1GMbh9LS5QhuPHKiNGIo4CDok6w6nsxjB5d4931TMwSfFbAFSUfJ5Z1bBPDzRvehb+sc/gSg==",
+      "path": "enyim.core/0.6.8",
+      "hashPath": "enyim.core.0.6.8.nupkg.sha512"
+    },
+    "Enyim.Memcached2/0.6.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bbbkALaUZjQPLF+qdt5AZ8CaUCXHP9xl/h/LeqRAdXbIBUeu0ljv+8XLOsXS7r9+vF1YVtpq7TK3hBNO2vTg/A==",
+      "path": "enyim.memcached2/0.6.8",
+      "hashPath": "enyim.memcached2.0.6.8.nupkg.sha512"
+    }
+  }
+}

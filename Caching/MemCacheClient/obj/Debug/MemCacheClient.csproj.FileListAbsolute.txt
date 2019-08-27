@@ -1,0 +1,9 @@
+C:\HarmanPrototypes\Caching\MemCacheClient\bin\Debug\MemCacheClient.exe.config
+C:\HarmanPrototypes\Caching\MemCacheClient\bin\Debug\MemCacheClient.exe
+C:\HarmanPrototypes\Caching\MemCacheClient\bin\Debug\MemCacheClient.pdb
+C:\HarmanPrototypes\Caching\MemCacheClient\bin\Debug\Enyim.Caching.dll
+C:\HarmanPrototypes\Caching\MemCacheClient\bin\Debug\Enyim.Caching.xml
+C:\HarmanPrototypes\Caching\MemCacheClient\obj\Debug\MemCacheClient.csprojAssemblyReference.cache
+C:\HarmanPrototypes\Caching\MemCacheClient\obj\Debug\MemCacheClient.csproj.CopyComplete
+C:\HarmanPrototypes\Caching\MemCacheClient\obj\Debug\MemCacheClient.exe
+C:\HarmanPrototypes\Caching\MemCacheClient\obj\Debug\MemCacheClient.pdb

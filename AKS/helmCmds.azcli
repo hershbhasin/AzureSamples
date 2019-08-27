@@ -1,0 +1,4 @@
+cd C:\_az300\packaging-applications-helm-kubernetes\helm\lab5_helm_chart_version1
+
+#install
+helm install guestbook
