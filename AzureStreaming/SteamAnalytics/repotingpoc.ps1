@@ -1,23 +1,30 @@
 
+######### Change These variables #############
 
 $subscriptionId = "ce644727-f6f9-4d03-a4bb-f687d3eaf60d"
+$startip = "199.27.112.3"
+
+
+########## Hard Coded Variables###########
+
 $resourceGroupName ="rg-reportingpoc"
 $resourceGroupLocation="eastus"
 $deploymentName = "reportingpoc"
 $namespaceName = "reportingpocnamespace"
 $eventhubName ="deviceEventHub"
+$endip = $startip 
+
 
 
 ###SQL Server params
-$adminlogin = "harmanadmin"
-$password = "!Race2Win!"
+$adminlogin = "theadmin"
+$password = "PassW0rd"
 # Set server name - the logical server name has to be unique in the system
 $servername = "reportingpocserver5678"  #"server-$(Get-Random)"
 # The sample database name
 $databasename = "devicedb"
 # The ip address range that you want to allow to access your server. Enter your desktop IP here if you want to connect locally to sqlserver
-$startip = "199.27.112.3"
-$endip = "199.27.112.3"
+
 
 
 # sign in
