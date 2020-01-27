@@ -11,8 +11,8 @@ namespace SampleSender
     public class Program
     {
         private static EventHubClient eventHubClient;
-        private const string EventHubConnectionString = "Endpoint=sb://reportingpocnamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=P+r+k+1PIqG5176EYkTRkGtbDFNbFkjd8hUPpnfrDBQ=";
-        private const string EventHubName = "deviceeventhub";
+        private const string EventHubConnectionString = "Endpoint=sb://mywonderfuleventhub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=B35YSDAdzl74BN3vLAqb3pVf/RpSPuhQv4yV78yrH2U=";
+        private const string EventHubName = "myeventhub";
 
         public static void Main(string[] args)
         {
@@ -21,8 +21,7 @@ namespace SampleSender
 
         private static async Task MainAsync(string[] args)
         {
-            //WriteToConsole();
-
+            
             WriteToHub();
             Console.WriteLine("Press any key to exit.");
             Console.ReadLine();
@@ -38,6 +37,7 @@ namespace SampleSender
             // Creates an EventHubsConnectionStringBuilder object from a the connection string, and sets the EntityPath.
             // Typically the connection string should have the Entity Path in it, but for the sake of this simple scenario
             // we are using the connection string from the namespace.
+
             var connectionStringBuilder = new EventHubsConnectionStringBuilder(EventHubConnectionString)
             {
                 EntityPath = EventHubName
@@ -57,7 +57,9 @@ namespace SampleSender
             {
                 try
                 {
-                    var message = new PayloadGenerator().Payload();//$"Message {i}";
+                    //get a random payload
+                    var message = new PayloadGenerator().Payload();
+
                     Console.WriteLine($"Sending message: {message}");
                     await eventHubClient.SendAsync(new EventData(Encoding.UTF8.GetBytes(message)));
                 }

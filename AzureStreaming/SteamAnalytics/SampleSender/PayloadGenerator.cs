@@ -10,11 +10,10 @@ namespace SampleSender
     {
         private static readonly Random Getrandom = new Random();
 
-        List<string> _users = new List<string>(){ "Bob", "John", "Sue", "Tom" };
-        List<string> _actions = new List<string>() { "Get", "Set", "Add", "Delete" };
-        List<string> _devicename = new List<string>() { "Acendo Book 123", "Acendo Core xyz", "CT Series qxt", "Acendo Core 456" };
-        List<string> _projects = new List<string>() { "Newton", "Nelson Mandala", "Scott Miller", "Richardson" };
-        List<string> _tenants = new List<string>() { "Disney", "Multi Vision", "ABC Integrators", "Sound Labs" };
+       
+        List<string> _devicename = new List<string>() { "Pump1", "Pump2", "Pump3", "Pump4" };
+        List<string> _ledColor = new List<string>() { "Red", "Yellow", "Orange", "Green" };
+        
         public static int GetRandomNumber()
         {
             lock (Getrandom) // synchronize
@@ -27,11 +26,8 @@ namespace SampleSender
         {
             dynamic data = new ExpandoObject();
             data.device = _devicename[GetRandomNumber()];
-            data.username = _users[GetRandomNumber()];
-            data.action = _actions[GetRandomNumber()];
-            data.project = _projects[GetRandomNumber()];
-            data.tenant = _tenants[GetRandomNumber()];
-
+            data.ledColor = _ledColor[GetRandomNumber()];
+         
             return JsonConvert.SerializeObject(data);
         }
     }
