@@ -1,0 +1,22 @@
+# Create a s3 bucket
+aws s3 mb s3://hb-deploy
+
+
+
+# s3 Policy to upload files
+{
+    "Statement": [
+        {
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::hb-deploy/*",
+            "Principal": {
+                "AWS": [
+                    "<Your Account Number>"
+                ]
+            }
+        }
+    ]
+}

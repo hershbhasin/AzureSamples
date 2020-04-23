@@ -1,0 +1,14 @@
+
+
+# to get arn of role
+aws iam get-role --role-name hb-service-role-for-codedeploy-toread-ec2tags --query "Role.Arn" --output text
+
+# Create Deployment Group
+
+aws deploy create-deployment-group --application-name HelloWorld_App --deployment-group-name HelloWorld_DepGroup --deployment-config-name CodeDeployDefault.OneAtATime --ec2-tag-filters Key=Name,Value=CodeDeployDemo,Type=KEY_AND_VALUE --service-role-arn arn:aws:iam::505178285116:role/hb-service-role-for-codedeploy-toread-ec2tags
+
+#Deploy
+aws deploy create-deployment --application-name HelloWorld_App --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name HelloWorld_DepGroup --s3-location bucket=hb-deploy,bundleType=zip,key=HelloWorld_App.zip
+
+
+
